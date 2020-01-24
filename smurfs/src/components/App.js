@@ -9,12 +9,16 @@ const App = props => {
   useEffect(() => {
     props.FetchData();
   }, [props.FetchData]);
-  const [newSmurf, setSmurf] = useState({ name: "", age: 0, height: 0 });
+
+  const initVal = { name: "", age: "", height: "" };
+
+  const [newSmurf, setSmurf] = useState(initVal);
 
   const handleClick = () => {
     console.log("Smurf", newSmurf);
     props.SendData(newSmurf);
     props.FetchData();
+    setSmurf(initVal);
   };
 
   const handelHeight = e => {
@@ -43,7 +47,7 @@ const App = props => {
       <h1>SMURFS! 2.0 W/ Redux</h1>
       <div>Welcome to your state management version of Smurfs!</div>
       <div>Start inside of your `src/index.js` file!</div>
-      <div>
+      <div className="Form">
         <h2>Add a smurf!</h2>
         <input
           type="text"
@@ -68,7 +72,7 @@ const App = props => {
       <div>Have fun!</div>
       {!props.Data && props.isLoading && <h1>Loading Data..</h1>}
       {props.Data && !props.isLoading && (
-        <div>
+        <div className="Card-Container">
           {props.Data.map(ele => (
             <Card item={ele} />
           ))}
